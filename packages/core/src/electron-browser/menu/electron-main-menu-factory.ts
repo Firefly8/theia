@@ -131,7 +131,9 @@ export class ElectronMainMenuFactory {
                     throw new Error(`Unknown command with ID: ${commandId}.`);
                 }
 
+                // We should omit rendering menu items which are not visible or enabled.
                 if (!this.commandRegistry.isVisible(commandId, ...args)
+                    || !this.commandRegistry.isEnabled(commandId, ...args)
                     || (!!node.action.when && !this.contextKeyService.match(node.action.when))) {
                     continue;
                 }
